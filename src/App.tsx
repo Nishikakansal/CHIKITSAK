@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Screen, Hospital } from './types';
-import { HOSPITALS } from './constants';
 import Layout from './components/Layout';
 import SplashScreen from './components/SplashScreen';
 import Onboarding from './components/Onboarding';
@@ -9,6 +8,7 @@ import Home from './components/Home';
 import HospitalList from './components/HospitalList';
 import HospitalDetails from './components/HospitalDetails';
 import Navigation from './components/Navigation';
+import TriageInput from './components/TriageInput';
 import TriageResult from './components/TriageResult';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
@@ -28,20 +28,14 @@ export default function App() {
     navigate('HOSPITAL_DETAILS');
   };
 
-  const handleTriage = async (symptoms: string) => {
-    // Show a loading state or just navigate immediately for responsiveness
-    // In a real app, we'd call the /api/triage endpoint
-    // console.log("Triaging symptoms:", symptoms);
-    
-    // Simulating AI delay
-    const mockResult = {
-      severity: 'CRITICAL',
-      summary: `Based on detected symptoms "${symptoms}", we suspect an acute cardiovascular event. High risk of myocardial infarction or severe respiratory distress.`,
-      probable_condition: 'Acute Coronary Syndrome',
-      action_required: 'Immediate medical evaluation required. Do not drive yourself.'
-    };
-    
-    setTriageResult(mockResult);
+  const handleTriageResult = (result: {
+    severity: 'CRITICAL' | 'MEDIUM' | 'LOW';
+    summary: string;
+    probable_condition: string;
+    action_required: string;
+    symptoms: string;
+  }) => {
+    setTriageResult(result);
     navigate('TRIAGE_RESULT');
   };
 
@@ -53,22 +47,37 @@ export default function App() {
         return <Onboarding onNext={() => navigate('LOGIN')} onSkip={() => navigate('LOGIN')} />;
       case 'LOGIN':
       case 'SIGNUP':
-        return <Auth onLogin={() => navigate('HOME')} onEmergency={() => handleTriage('Emergency SOS Triggered')} />;
+        return <Auth onLogin={() => navigate('HOME')} onEmergency={() => navigate('TRIAGE_INPUT')} />;
       case 'HOME':
         return (
-          <Home 
-            onServiceClick={(id) => id === 'ambulance' ? navigate('HOSPITAL_LIST') : null} 
-            onEmergency={() => handleTriage('Emergency button pressed')}
+          <Home
+            onServiceClick={(id) => id === 'ambulance' ? navigate('HOSPITAL_LIST') : navigate('HOME')}
+            onEmergency={() => navigate('TRIAGE_INPUT')}
             onProfile={() => navigate('PROFILE')}
+          />
+        );
+      case 'TRIAGE_INPUT':
+        return (
+          <TriageInput
+            onBack={() => navigate('HOME')}
+            onResult={handleTriageResult}
+          />
+        );
+      case 'TRIAGE_RESULT':
+        return (
+          <TriageResult
+            result={triageResult}
+            onFindHospital={() => navigate('HOSPITAL_LIST')}
+            onBack={() => navigate('TRIAGE_INPUT')}
           />
         );
       case 'HOSPITAL_LIST':
         return <HospitalList onHospitalClick={handleHospitalClick} />;
       case 'HOSPITAL_DETAILS':
         return selectedHospital ? (
-          <HospitalDetails 
-            hospital={selectedHospital} 
-            onBack={() => navigate('HOSPITAL_LIST')} 
+          <HospitalDetails
+            hospital={selectedHospital}
+            onBack={() => navigate('HOSPITAL_LIST')}
             onNavigate={() => navigate('NAVIGATION')}
           />
         ) : null;
@@ -76,14 +85,12 @@ export default function App() {
         return selectedHospital ? (
           <Navigation hospital={selectedHospital} onBack={() => navigate('HOSPITAL_DETAILS')} />
         ) : null;
-      case 'TRIAGE_RESULT':
-        return <TriageResult result={triageResult} onFindHospital={() => navigate('HOSPITAL_LIST')} onBack={() => navigate('HOME')} />;
       case 'PROFILE':
         return <Profile />;
       case 'SETTINGS':
         return <Settings onLogout={() => navigate('LOGIN')} />;
       default:
-        return <Home onServiceClick={() => {}} onEmergency={() => {}} onProfile={() => {}} />;
+        return <Home onServiceClick={() => {}} onEmergency={() => navigate('TRIAGE_INPUT')} onProfile={() => {}} />;
     }
   };
 

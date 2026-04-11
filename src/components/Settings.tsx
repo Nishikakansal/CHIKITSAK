@@ -1,11 +1,27 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SettingsProps {
   onLogout: () => void;
 }
 
 export default function Settings({ onLogout }: SettingsProps) {
+  const [userName, setUserName] = useState('Patient');
+
+  useEffect(() => {
+    try {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const userObj = JSON.parse(userStr);
+        if (userObj.name) {
+          setUserName(userObj.name);
+        }
+      }
+    } catch (e) {
+      console.error('Error reading user from localStorage', e);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-full bg-background-light dark:bg-background-dark">
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
@@ -17,17 +33,13 @@ export default function Settings({ onLogout }: SettingsProps) {
       <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto space-y-6">
         <section className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4">
           <div className="relative shrink-0">
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-primary/20">
-              <img 
-                alt="Alex Johnson" 
-                className="w-full h-full object-cover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE2LivDxWMjJ4YS7wOSKHsiRHsI1yeojCAPTkAhb6w6AfZY0JL9kLi0YEX8AQ0qGvkvbzOCdHk6h9RorzWFIHJklja3DgCro1Ufnlz1Y--nGAs0YEY88WIewtHrGTQA1vApUwW2mohru0SylbDAA2Aulv1Geol01YLMoijNNDv72lYHiuh_cKWOQT6HeMv3DI6WQdM__tsXHpXHlEMmDTF8PMK-JgrEkVjgJ1IiI5KLNIpEgU-c3gsJCQ4MlOJL2QoEwglUbxi2IQ" 
-              />
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center text-primary font-bold text-xl uppercase">
+              {userName.charAt(0)}
             </div>
             <div className="absolute bottom-0 right-0 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-slate-800">PRO</div>
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold truncate">Alex Johnson</h2>
+            <h2 className="text-lg font-bold truncate">{userName}</h2>
             <p className="text-xs text-slate-400">ID: CHK-882190</p>
           </div>
           <button className="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">

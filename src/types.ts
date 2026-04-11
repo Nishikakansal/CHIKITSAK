@@ -8,6 +8,7 @@ export type Screen =
   | 'HOSPITAL_LIST' 
   | 'HOSPITAL_DETAILS' 
   | 'NAVIGATION' 
+  | 'TRIAGE_INPUT'
   | 'TRIAGE_RESULT' 
   | 'PROFILE' 
   | 'SETTINGS';
