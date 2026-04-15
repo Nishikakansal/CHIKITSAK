@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Screen, Hospital } from './types';
+import { Screen, Hospital, TriageResult } from './types';
 import Layout from './components/Layout';
 import SplashScreen from './components/SplashScreen';
 import Onboarding from './components/Onboarding';
@@ -9,14 +9,14 @@ import HospitalList from './components/HospitalList';
 import HospitalDetails from './components/HospitalDetails';
 import Navigation from './components/Navigation';
 import TriageInput from './components/TriageInput';
-import TriageResult from './components/TriageResult';
+import TriageResultScreen from './components/TriageResult';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('SPLASH');
   const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null);
-  const [triageResult, setTriageResult] = useState<any>(null);
+  const [triageResult, setTriageResult] = useState<TriageResult | null>(null);
 
   const navigate = (newScreen: Screen) => {
     setScreen(newScreen);
@@ -28,13 +28,7 @@ export default function App() {
     navigate('HOSPITAL_DETAILS');
   };
 
-  const handleTriageResult = (result: {
-    severity: 'CRITICAL' | 'MEDIUM' | 'LOW';
-    summary: string;
-    probable_condition: string;
-    action_required: string;
-    symptoms: string;
-  }) => {
+  const handleTriageResult = (result: TriageResult) => {
     setTriageResult(result);
     navigate('TRIAGE_RESULT');
   };
@@ -65,14 +59,20 @@ export default function App() {
         );
       case 'TRIAGE_RESULT':
         return (
-          <TriageResult
+          <TriageResultScreen
             result={triageResult}
             onFindHospital={() => navigate('HOSPITAL_LIST')}
             onBack={() => navigate('TRIAGE_INPUT')}
           />
         );
       case 'HOSPITAL_LIST':
-        return <HospitalList onHospitalClick={handleHospitalClick} />;
+        return (
+          <HospitalList
+            severity={triageResult?.severity ?? null}
+            onHospitalClick={handleHospitalClick}
+            onBack={() => navigate(triageResult ? 'TRIAGE_RESULT' : 'HOME')}
+          />
+        );
       case 'HOSPITAL_DETAILS':
         return selectedHospital ? (
           <HospitalDetails

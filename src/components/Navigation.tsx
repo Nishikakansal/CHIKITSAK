@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Hospital } from '../types';
 
@@ -9,122 +8,140 @@ interface NavigationProps {
 
 export default function Navigation({ hospital, onBack }: NavigationProps) {
   return (
-    <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden h-screen w-full flex flex-col max-w-md mx-auto relative">
-      <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-6 pb-2 bg-gradient-to-b from-white/90 to-transparent dark:from-background-dark/90 pointer-events-none">
+    <div className="bg-[#f8fafb] font-['Inter',sans-serif] antialiased overflow-hidden h-full w-full flex flex-col relative">
+
+      {/* Top overlay header */}
+      <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-8 pb-3 bg-gradient-to-b from-white/95 to-transparent pointer-events-none">
         <div className="flex items-center justify-between pointer-events-auto">
-          <button onClick={onBack} className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-md text-slate-700 dark:text-slate-200 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800">
+          <button
+            onClick={onBack}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-slate-700 hover:bg-slate-50 transition-colors"
+          >
             <span className="material-symbols-outlined">arrow_back</span>
           </button>
-          <div className="flex flex-col items-center bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-md">
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Navigating to</span>
-            <span className="text-sm font-bold">{hospital.name}</span>
+
+          <div className="flex flex-col items-center bg-white px-4 py-2 rounded-full shadow-md">
+            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Navigating to</span>
+            <span className="text-[13px] font-bold text-slate-900 max-w-[160px] truncate">{hospital.name}</span>
           </div>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-md text-slate-700 dark:text-slate-200 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800">
-            <span className="material-symbols-outlined">settings</span>
-          </button>
+
+          <div className="h-10 w-10" /> {/* spacer */}
         </div>
       </div>
 
-      <div className="relative flex-1 w-full h-full bg-[#eef2f3] dark:bg-[#1a202c] overflow-hidden">
-        <div className="absolute inset-0 w-full h-full opacity-40" style={{ 
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.5) 2px, transparent 2px)',
-          backgroundSize: '40px 40px',
-          backgroundColor: '#e5e7eb'
-        }}></div>
-        
-        <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 375 812">
-          <path className="dark:stroke-slate-700" d="M-20 400 L400 350" stroke="white" strokeWidth="20"></path>
-          <path className="dark:stroke-slate-700" d="M100 0 L80 812" stroke="white" strokeWidth="15"></path>
-          <path className="dark:stroke-slate-700" d="M280 0 L300 812" stroke="white" strokeWidth="12"></path>
-          <path className="dark:stroke-slate-700" d="M0 200 L375 220" stroke="white" strokeWidth="18"></path>
-          
-          <path className="dark:fill-slate-800/50" d="M-50 -50 L150 -50 L150 150 L-50 150 Z" fill="#d1fae5"></path>
-          <path className="dark:fill-slate-800/50" d="M250 500 L400 500 L400 700 L250 650 Z" fill="#d1fae5"></path>
-          
-          <path d="M187 650 C 187 550, 80 500, 80 400 C 80 300, 200 300, 200 200" fill="none" stroke="#13ecec" strokeLinecap="round" strokeWidth="6" className="drop-shadow-md"></path>
-          
-          <path className="opacity-80" d="M80 460 C 80 440, 80 420, 80 400" fill="none" stroke="#ef4444" strokeLinecap="round" strokeWidth="6"></path>
-          <path className="opacity-80" d="M80 400 C 80 380, 100 360, 120 350" fill="none" stroke="#f59e0b" strokeLinecap="round" strokeWidth="6"></path>
-          
-          <g transform="translate(188, 180)">
-            <circle cx="12" cy="12" fill="rgba(19, 236, 236, 0.2)" r="24"></circle>
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#ef4444" transform="scale(1.5) translate(-4, -4)"></path>
-          </g>
-          
-          <g transform="translate(187, 650)">
-            <circle className="fill-primary/30 dark:fill-primary/20 animate-ping" cx="0" cy="0" r="20"></circle>
-            <circle className="shadow-lg" cx="0" cy="0" fill="white" r="12" stroke="#13ecec" strokeWidth="4"></circle>
-          </g>
+      {/* Map placeholder */}
+      <div className="relative flex-1 w-full bg-[#e8eff0] overflow-hidden">
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)',
+            backgroundSize: '36px 36px',
+          }}
+        />
+
+        {/* Stylised route SVG */}
+        <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 375 600">
+          {/* Road blocks */}
+          <rect x="60" y="0" width="14" height="600" fill="white" opacity="0.6" />
+          <rect x="290" y="0" width="14" height="600" fill="white" opacity="0.6" />
+          <rect x="0" y="180" width="375" height="12" fill="white" opacity="0.6" />
+          <rect x="0" y="370" width="375" height="12" fill="white" opacity="0.6" />
+
+          {/* Route path */}
+          <path
+            d="M187 560 C 187 460, 67 440, 67 370 C 67 300, 67 260, 67 180 C 67 120, 140 110, 187 110"
+            fill="none"
+            stroke="#0cd8d8"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeDasharray="12 6"
+          />
+
+          {/* Hospital pin */}
+          <circle cx="187" cy="100" r="18" fill="#0cd8d880" />
+          <circle cx="187" cy="100" r="10" fill="#0cd8d8" />
+          <text x="187" y="104" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">H</text>
+
+          {/* User pin */}
+          <circle cx="187" cy="562" r="22" fill="#ef444430" className="animate-ping" />
+          <circle cx="187" cy="562" r="12" fill="white" stroke="#0cd8d8" strokeWidth="3" />
         </svg>
 
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3">
-          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-slate-800 shadow-md text-slate-700 dark:text-slate-200">
+        {/* Map zoom controls */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+          <button className="h-9 w-9 flex items-center justify-center rounded-lg bg-white shadow-md text-slate-700">
             <span className="material-symbols-outlined text-[20px]">add</span>
           </button>
-          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-slate-800 shadow-md text-slate-700 dark:text-slate-200">
+          <button className="h-9 w-9 flex items-center justify-center rounded-lg bg-white shadow-md text-slate-700">
             <span className="material-symbols-outlined text-[20px]">remove</span>
           </button>
-          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-white dark:bg-slate-800 shadow-md text-primary mt-2">
+          <button className="h-9 w-9 flex items-center justify-center rounded-lg bg-white shadow-md text-[#0cd8d8] mt-1">
             <span className="material-symbols-outlined text-[20px]">my_location</span>
           </button>
         </div>
       </div>
 
-      <div className="relative z-10 w-full bg-white dark:bg-slate-800 rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div className="w-full flex justify-center pt-3 pb-1">
-          <div className="w-12 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+      {/* Bottom info sheet */}
+      <div className="relative z-10 w-full bg-white rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        {/* Drag handle */}
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-slate-200" />
         </div>
-        <div className="px-5 pb-6 pt-2">
-          <div className="flex items-start justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold leading-tight">{hospital.name}</h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                Emergency Care Unit • Open 24/7
-              </p>
+
+        <div className="px-5 pb-8 pt-2">
+          <h2 className="text-[17px] font-bold text-slate-900 mb-0.5">{hospital.name}</h2>
+          <p className="text-[12px] text-slate-400 mb-4">{hospital.address}</p>
+
+          {/* ETA + Distance */}
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ETA</span>
+              <span className="text-[22px] font-black text-emerald-500">
+                {hospital.eta_min !== null ? hospital.eta_min : '—'}
+                <span className="text-[13px] font-semibold text-slate-500 ml-1">min</span>
+              </span>
             </div>
-            <span className="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded text-xs font-bold uppercase tracking-wide">Fastest</span>
+            <div className="w-px h-8 bg-slate-200" />
+            <div className="flex flex-col">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Distance</span>
+              <span className="text-[22px] font-black text-slate-900">
+                {hospital.distance_km !== null ? hospital.distance_km : '—'}
+                <span className="text-[13px] font-semibold text-slate-500 ml-1">km</span>
+              </span>
+            </div>
+            {hospital.emergency && (
+              <>
+                <div className="w-px h-8 bg-slate-200" />
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status</span>
+                  <span className="text-[13px] font-bold text-emerald-500 flex items-center gap-1 mt-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                    Open 24/7
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
-          <div className="flex items-center gap-6 mb-6">
-            <div className="flex flex-col">
-              <span className="text-xs text-slate-400 uppercase font-semibold tracking-wider">ETA</span>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-bold text-green-600 dark:text-green-400">{hospital.eta.split(' ')[0]}</span>
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-300">min</span>
-              </div>
-            </div>
-            <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
-            <div className="flex flex-col">
-              <span className="text-xs text-slate-400 uppercase font-semibold tracking-wider">Distance</span>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-bold">{hospital.distance.split(' ')[0]}</span>
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-300">km</span>
-              </div>
-            </div>
-            <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
-            <div className="flex flex-col">
-              <span className="text-xs text-slate-400 uppercase font-semibold tracking-wider">Arrival</span>
-              <div className="flex items-baseline gap-1">
-                <span className="text-lg font-bold">10:42</span>
-                <span className="text-xs font-medium text-slate-600 dark:text-slate-300">AM</span>
-              </div>
-            </div>
+          {/* Traffic alert */}
+          <div className="flex items-center gap-2 mb-4 p-3 bg-amber-50 rounded-xl border border-amber-100">
+            <span className="material-symbols-outlined text-amber-500 text-[18px]">traffic</span>
+            <p className="text-[12px] text-amber-700 font-medium">Moderate traffic on route — allow extra time</p>
           </div>
 
-          <div className="flex items-center gap-2 mb-6 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-900/30">
-            <span className="material-symbols-outlined text-red-500 dark:text-red-400 text-lg">traffic</span>
-            <p className="text-sm text-red-700 dark:text-red-300 font-medium">Heavy traffic reported on 5th Avenue (+4m)</p>
-          </div>
-
+          {/* Action buttons */}
           <div className="grid grid-cols-4 gap-3">
-            <button className="col-span-1 flex flex-col items-center justify-center h-14 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300">
-              <span className="material-symbols-outlined">call</span>
-              <span className="text-[10px] font-semibold mt-0.5">Call</span>
-            </button>
-            <button className="col-span-3 flex items-center justify-center gap-2 h-14 rounded-lg bg-primary text-slate-900 font-bold shadow-lg shadow-primary/20">
-              <span className="material-symbols-outlined">near_me</span>
-              <span>Start Navigation</span>
+            <a
+              href="tel:112"
+              className="col-span-1 flex flex-col items-center justify-center h-14 rounded-xl border border-slate-200 bg-white text-slate-700 gap-0.5"
+            >
+              <span className="material-symbols-outlined text-[20px] text-red-500">call</span>
+              <span className="text-[10px] font-bold text-slate-500">112</span>
+            </a>
+            <button className="col-span-3 flex items-center justify-center gap-2 h-14 rounded-xl bg-[#0cd8d8] text-white font-bold text-[15px] shadow-lg shadow-[#0cd8d8]/30 active:scale-[0.97] transition-all">
+              <span className="material-symbols-outlined fill-1">near_me</span>
+              Start Navigation
             </button>
           </div>
         </div>

@@ -13,22 +13,30 @@ export type Screen =
   | 'PROFILE' 
   | 'SETTINGS';
 
+/** Matches the MongoDB Hospitals collection schema returned by /api/hospitals/ranked */
 export interface Hospital {
-  id: string;
   name: string;
   address: string;
-  distance: string;
-  eta: string;
-  rating: number;
-  reviews: number;
-  image: string;
-  ventilators: { available: number; total: number };
-  icuBeds: { available: number; total: number };
-  doctorsActive: number;
+  coordinates: { lat: number; lng: number };
+  distance_km: number | null;
+  eta_min: number | null;
+  beds_available: number;
+  icu_available: number;
+  ventilators_available: number;
+  doctors_on_duty: number;
+  crowd_level: number;        // 0.0 (empty) to 1.0 (full)
   specializations: string[];
-  phone: string;
-  isEmergency: boolean;
-  crowdLevel: 'Low' | 'Mod.' | 'High';
+  emergency: boolean;
+  priority_score: number;     // 0–100, computed by cost function
+}
+
+export interface TriageResult {
+  severity: 'CRITICAL' | 'MEDIUM' | 'LOW';
+  summary: string;
+  probable_condition: string;
+  action_required: string;
+  symptoms: string;
+  confidence?: number;
 }
 
 export interface UserProfile {

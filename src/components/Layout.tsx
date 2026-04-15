@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Screen } from '../types';
 
@@ -8,54 +7,97 @@ interface LayoutProps {
   onNavigate: (screen: Screen) => void;
 }
 
+// Screens that show the bottom navigation bar
+const NAV_SCREENS: Screen[] = ['HOME', 'HOSPITAL_LIST', 'PROFILE', 'SETTINGS'];
+
 export default function Layout({ children, currentScreen, onNavigate }: LayoutProps) {
-  const showNav = ['HOME', 'HOSPITAL_LIST', 'PROFILE', 'SETTINGS'].includes(currentScreen);
+  const showNav = NAV_SCREENS.includes(currentScreen);
 
-  if (!showNav) return <>{children}</>;
-
+  // Outer wrapper — always centres the mobile shell in the browser
   return (
-    <div className="flex flex-col h-screen bg-[#f8fafb] overflow-hidden max-w-md mx-auto shadow-2xl relative font-['Inter',sans-serif] antialiased">
-      <main className="flex-1 overflow-y-auto no-scrollbar">
-        {children}
-      </main>
-      
-      <nav className="fixed bottom-0 left-0 right-0 w-full z-50">
-        <div className="max-w-md mx-auto relative bg-white border-t border-slate-100 rounded-t-[32px] shadow-[0_-10px_35px_-15px_rgba(0,0,0,0.1)] pt-4 pb-8 px-6">
-          <div className="flex justify-between items-center relative z-10 w-full">
-            <button 
-              onClick={() => onNavigate('HOME')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all ${currentScreen === 'HOME' ? 'text-[#0cd8d8]' : 'text-[#94a3b8] hover:text-[#64748b]'}`}
-            >
-              <span className={`material-symbols-outlined text-[28px] ${currentScreen === 'HOME' ? 'fill-1 font-variation-settings-fill' : ''}`}>home</span>
-              <span className="text-[11px] font-bold tracking-wide">Home</span>
-            </button>
-            
-            <button 
-              onClick={() => {}} // Dummy for history
-              className="flex flex-col items-center justify-center gap-1 transition-all text-[#94a3b8] hover:text-[#64748b]"
-            >
-              <span className="material-symbols-outlined text-[28px]">history</span>
-              <span className="text-[11px] font-bold tracking-wide">History</span>
-            </button>
+    <div className="min-h-screen bg-slate-200 flex items-start justify-center">
+      {/* Mobile shell — max 430 px, fills full height */}
+      <div
+        className="relative w-full flex flex-col bg-[#f8fafb] overflow-hidden shadow-2xl"
+        style={{ maxWidth: 430, minHeight: '100svh' }}
+      >
+        {/* Main content area */}
+        <main className={`flex-1 overflow-y-auto no-scrollbar ${showNav ? 'pb-24' : ''}`}>
+          {children}
+        </main>
 
-            <button 
-              onClick={() => onNavigate('HOSPITAL_LIST')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all ${currentScreen === 'HOSPITAL_LIST' ? 'text-[#0cd8d8]' : 'text-[#94a3b8] hover:text-[#64748b]'}`}
-            >
-              <span className={`material-symbols-outlined text-[28px] ${currentScreen === 'HOSPITAL_LIST' ? 'fill-1 font-variation-settings-fill' : 'fill-1 font-variation-settings-fill'}`}>add_box</span>
-              <span className="text-[11px] font-bold tracking-wide">Hospitals</span>
-            </button>
+        {/* Bottom nav — only on primary screens */}
+        {showNav && (
+          <nav className="absolute bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.08)] pt-3 pb-6 px-6">
+            <div className="flex justify-between items-center">
 
-            <button 
-              onClick={() => onNavigate('SETTINGS')}
-              className={`flex flex-col items-center justify-center gap-1 transition-all ${currentScreen === 'SETTINGS' ? 'text-[#0cd8d8]' : 'text-[#94a3b8] hover:text-[#64748b]'}`}
-            >
-              <span className={`material-symbols-outlined text-[28px] ${currentScreen === 'SETTINGS' ? 'fill-1 font-variation-settings-fill' : 'fill-1 font-variation-settings-fill'}`}>settings</span>
-              <span className="text-[11px] font-bold tracking-wide">Settings</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+              {/* Home */}
+              <NavBtn
+                icon="home"
+                label="Home"
+                active={currentScreen === 'HOME'}
+                onClick={() => onNavigate('HOME')}
+              />
+
+              {/* History (placeholder) */}
+              <NavBtn
+                icon="history"
+                label="History"
+                active={false}
+                onClick={() => {}}
+              />
+
+              {/* Hospitals */}
+              <NavBtn
+                icon="local_hospital"
+                label="Hospitals"
+                active={currentScreen === 'HOSPITAL_LIST'}
+                onClick={() => onNavigate('HOSPITAL_LIST')}
+              />
+
+              {/* Settings */}
+              <NavBtn
+                icon="settings"
+                label="Settings"
+                active={currentScreen === 'SETTINGS'}
+                onClick={() => onNavigate('SETTINGS')}
+              />
+
+            </div>
+          </nav>
+        )}
+      </div>
     </div>
+  );
+}
+
+interface NavBtnProps {
+  icon: string;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}
+
+function NavBtn({ icon, label, active, onClick }: NavBtnProps) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col items-center justify-center gap-0.5 min-w-[56px] transition-all"
+    >
+      <span
+        className={`material-symbols-outlined text-[26px] transition-all ${
+          active ? 'fill-1 font-variation-settings-fill text-[#0cd8d8]' : 'text-[#94a3b8]'
+        }`}
+      >
+        {icon}
+      </span>
+      <span
+        className={`text-[10px] font-bold tracking-wide transition-all ${
+          active ? 'text-[#0cd8d8]' : 'text-[#94a3b8]'
+        }`}
+      >
+        {label}
+      </span>
+    </button>
   );
 }
