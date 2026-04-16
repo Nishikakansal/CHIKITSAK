@@ -66,10 +66,14 @@ export default function Auth({ onLogin, onEmergency }: AuthProps) {
       <div className="absolute -top-[20%] -left-[20%] w-[140%] h-[60%] rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
       
       <div className="relative z-10 flex flex-col items-center pt-12 px-6 pb-6">
-        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white to-primary/10 dark:from-slate-800 dark:to-primary/10 shadow-lg flex items-center justify-center mb-6 ring-1 ring-primary/20 backdrop-blur-sm">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 m-auto w-4 h-full bg-primary rounded-full"></div>
-            <div className="absolute inset-0 m-auto h-4 w-full bg-primary rounded-full"></div>
+        <div className="relative mb-6">
+          <div className="absolute inset-0 bg-primary/25 rounded-full blur-2xl scale-150 pointer-events-none"></div>
+          <div className="relative p-1.5 rounded-2xl ring-2 ring-primary/30 shadow-xl shadow-primary/10">
+            <img
+              src="/logo.svg"
+              alt="CHIKITSAK logo"
+              className="w-20 h-20 rounded-xl"
+            />
           </div>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2 text-center">CHIKITSAK</h1>

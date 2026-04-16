@@ -21,16 +21,15 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative mb-8 group"
         >
-          <div className="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-full blur-2xl transform scale-150"></div>
-          <div className="relative bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
-            <div className="relative w-20 h-20 flex items-center justify-center">
-              <span className="material-symbols-outlined text-primary text-[5rem] absolute -top-1">
-                location_on
-              </span>
-              <span className="material-symbols-outlined text-white text-[2.5rem] absolute top-4 z-10 font-bold">
-                medical_services
-              </span>
-            </div>
+          {/* Ambient glow behind logo */}
+          <div className="absolute inset-0 bg-primary/30 rounded-full blur-3xl transform scale-150 pointer-events-none"></div>
+          {/* Logo card */}
+          <div className="relative p-2 rounded-3xl shadow-2xl ring-2 ring-primary/30">
+            <img
+              src="/logo.svg"
+              alt="CHIKITSAK logo"
+              className="w-28 h-28 rounded-2xl drop-shadow-lg"
+            />
           </div>
         </motion.div>
 

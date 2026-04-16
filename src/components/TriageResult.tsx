@@ -71,7 +71,7 @@ export default function TriageResultScreen({ onFindHospital, onBack, result }: T
           <span className="material-symbols-outlined text-[22px] text-slate-600">arrow_back</span>
         </button>
         <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-slate-100 shadow-sm">
-          <span className="material-symbols-outlined text-[16px] text-[#0cd8d8]">smart_toy</span>
+          <img src="/logo.svg" alt="CHIKITSAK" className="h-4 w-4 rounded-sm" />
           <span className="text-[11px] font-bold text-[#475569] uppercase tracking-wider">CHIKITSAK AI</span>
         </div>
       </div>

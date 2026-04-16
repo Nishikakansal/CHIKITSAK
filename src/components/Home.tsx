@@ -22,9 +22,7 @@ export default function Home({ onServiceClick, onEmergency, onProfile }: HomePro
       {/* Header */}
       <header className="flex items-center justify-between px-6 z-20 w-full mb-6">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 bg-[#0cd8d8] rounded-[10px] flex items-center justify-center shadow-md shadow-[#0cd8d8]/30">
-            <span className="material-symbols-outlined text-white text-[22px] fill-1 font-variation-settings-fill">medical_bag</span>
-          </div>
+          <img src="/logo.svg" alt="CHIKITSAK logo" className="h-10 w-10 rounded-[10px] shadow-md shadow-[#0cd8d8]/20" />
           <h1 className="font-extrabold text-[#1e293b] text-[20px] tracking-wide uppercase">
             CHIKITSAK
           </h1>
